@@ -4,17 +4,34 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const app = express();
 
 const config = require(`./config/${process.env.NODE_ENV}.js`)
-const { ACCOUNT_SID, AUTH_TOKEN } = require('./config/sms')
+const { ACCOUNT_SID, AUTH_TOKEN, ADMINS } = require('./config/sms')
 const client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
 
 console.log('hw')
-client.messages
-    .create({
-        to: '+18319150199',
-        from: '+18082014699',
-        body: `${new Date(new Date().getTime()).toLocaleTimeString()} helpme app up and running with user ${process.env.USER}`
-    })
-    .then((message) => {console.log('sent a message')})
+
+
+for (let i = 0; i < ADMINS.length; i++) {
+    setTimeout(function(){
+        client.messages
+        .create({
+            to: ADMINS[i],
+            from: '+18082014699',
+            body: `${new Date(new Date().getTime()).toLocaleTimeString()}- ${process.env.USER} started the helpme app`
+        })
+        .then((message) => {console.log(`sent a message to ${ADMINS[i]}`)})
+    }, i * 1000);
+}
+
+
+
+
+// client.messages
+//     .create({
+//         to: '+18319150199',
+//         from: '+18082014699',
+//         body: `${new Date(new Date().getTime()).toLocaleTimeString()} helpme app up and running with user ${process.env.USER}`
+//     })
+//     .then((message) => {console.log('sent a message')})
 
 let currentCount = 0;
 
