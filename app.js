@@ -35,7 +35,7 @@ app.post('/sms/rescue', (req, res) => {
     .create({
         to: '+18319150199',
         from: '+18082014699',
-        body: `test body from /sms/rescue`
+        body: `${req.headers.helpee} is at ${req.headers.location} and needs help!`
     })
     .then((message) => {console.log("sent a test rescue message")})
     
