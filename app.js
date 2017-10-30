@@ -31,15 +31,16 @@ app.post('/sms/rescue', (req, res) => {
     let location = req.headers.location;
     console.log("helpee and location", helpee + location);
     console.log("client", client);
-    client.messages
-    .create({
-        to: RESCUERS[0],
-        from: '+18082014699',
-        body: `${req.headers.helpee} is at ${req.headers.location} and needs help!`
-    })
-    .then((message) => {console.log("sent a test rescue message")})
-    res.end();
-    
+    for (let i = 0; i < RESCUERS.length; i++) {
+        client.messages
+        .create({
+            to: RESCUERS[0],
+            from: '+18082014699',
+            body: `${req.headers.helpee} is at ${req.headers.location} and needs help!`
+        })
+        .then((message) => {console.log("sent a test rescue message")})
+        res.end();
+    }
     // for (let i = 0; i < RESCUERS.length; i++) {
     //     console.log("starting rescue request to", RESCUERS[i]);
     //     setTimeout(function(){
