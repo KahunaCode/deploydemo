@@ -15,7 +15,8 @@ for (let i = 0; i < ADMINS.length; i++) {
     setTimeout(function(){
         client.messages
         .create({
-            to: ADMINS[i],
+            //to: ADMINS[i],
+            to: '+8319150199',
             from: '+18082014699',
             body: `${new Date(new Date().getTime()).toLocaleTimeString()}- ${process.env.USER} started the helpme app`
         })
@@ -57,6 +58,13 @@ app.post('/sms/chat', twilio.webhook({validate: false}),(req, res) => {
         res.type('text/xml')
         res.send(MessagingResponse.toString());
     })
+})
+
+app.post('/sms/rescue', (req, res) => {
+    //dummy DB query for helpers retuns phone #'s to text
+    const twiml = new MessagingResponse();
+    console.log("from: ", req.body.From);
+    // twiml.message(``)
 })
 
 app.use(express.static(__dirname + '/public'));
