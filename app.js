@@ -27,16 +27,15 @@ app.post('/sms/rescue', (req, res) => {
     //
     //dummy DB query for helpers retuns phone #'s to text. using RESCUERS in sms.js for tests
     //
-    
+    let helpee = req.headers.helpee;
+    let location = req.headers.location;
     console.log(RESCUERS);
     for (let i = 0; i < RESCUERS.length; i++) {
         setTimeout(function(){
             client.messages
             .create({
                 to: RESCUERS[i],
-                from: req.headers.helpee,
-                location: req.headers.location,
-                body: `${from} is at ${location} and needs help!`
+                body: `${helpee} is at ${location} and needs help!`
             })
             .then((message) => {console.log(`sent a message to ${RESCUERS[i]}`)})
         }, i * 1000);
