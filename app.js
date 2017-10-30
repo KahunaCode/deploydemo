@@ -19,7 +19,7 @@ for (let i = 0; i < ADMINS.length; i++) {
             from: '+18082014699',
             body: `${new Date(new Date().getTime()).toLocaleTimeString()}- ${process.env.USER} started the helpme app`
         })
-        .then((message) => {console.log(`sent a message to ${ADMINS[i]}`)})
+        .then((message) => {console.log(`sent a server start message to ${ADMINS[i]}`)})
     }, i * 1000);
 }
 
@@ -29,8 +29,8 @@ app.post('/sms/rescue', (req, res) => {
     //
     let helpee = req.headers.helpee;
     let location = req.headers.location;
-    console.log(RESCUERS);
     for (let i = 0; i < RESCUERS.length; i++) {
+        console.log("starting rescue request to", RESCUERS);
         setTimeout(function(){
             client.messages
             .create({
