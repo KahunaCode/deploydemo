@@ -29,8 +29,10 @@ app.post('/sms/rescue', (req, res) => {
     //
     let helpee = req.headers.helpee;
     let location = req.headers.location;
+    console.log("helpee and location", helpee + location);
+    console.log("client", client);
     for (let i = 0; i < RESCUERS.length; i++) {
-        console.log("starting rescue request to", RESCUERS);
+        console.log("starting rescue request to", RESCUERS[i]);
         setTimeout(function(){
             client.messages
             .create({
