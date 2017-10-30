@@ -1,4 +1,5 @@
 const express = require('express');
+const twilio = require('twilio');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 const app = express();
@@ -23,8 +24,6 @@ for (let i = 0; i < ADMINS.length; i++) {
 }
 
 
-
-
 // client.messages
 //     .create({
 //         to: '+18319150199',
@@ -43,6 +42,21 @@ app.post('/sms', (req,res) => {
     twiml.message('This is a generic response');
     res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
+})
+
+//this a helpme request for assistance
+app.post('/sms/chat', twilio.webhook({validate: false}),(req, res) => {
+    let from = req.body.From;
+    let to = req.body.To;
+    let body = req.body.Body;
+
+    gatherOutgoingNumber(from, to)
+    .then(function (outgoingPhoneNumber) {
+        let MessagingResponse = new MessagingResponse();
+        MessagingResponse.message({ to: outgoingPhoneNumber}, body);
+        res.type('text/xml')
+        res.send(MessagingResponse.toString());
+    })
 })
 
 app.use(express.static(__dirname + '/public'));
@@ -66,4 +80,4 @@ app.get('/api/increment', (req,res) => {
 
 const server = app.listen(config.PORT, () => {
     console.log(`server running on ${config.PORT}`)
-})
+}) 
