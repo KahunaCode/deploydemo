@@ -31,17 +31,26 @@ app.post('/sms/rescue', (req, res) => {
     let location = req.headers.location;
     console.log("helpee and location", helpee + location);
     console.log("client", client);
-    for (let i = 0; i < RESCUERS.length; i++) {
-        console.log("starting rescue request to", RESCUERS[i]);
-        setTimeout(function(){
-            client.messages
-            .create({
-                to: RESCUERS[i],
-                body: `${helpee} is at ${location} and needs help!`
-            })
-            .then((message) => {console.log(`sent a message to ${RESCUERS[i]}`)})
-        }, i * 1000);
-    }
+    client.messages
+    .create({
+        to: '+18319150199',
+        from: '+18082014699',
+        body: `test body from /sms/rescue`
+    })
+    .then((message) => {console.log("sent a test rescue message")})
+    
+    
+    // for (let i = 0; i < RESCUERS.length; i++) {
+    //     console.log("starting rescue request to", RESCUERS[i]);
+    //     setTimeout(function(){
+    //         client.messages
+    //         .create({
+    //             to: RESCUERS[i],
+    //             body: `${helpee} is at ${location} and needs help!`
+    //         })
+    //         .then((message) => {console.log(`sent a message to ${RESCUERS[i]}`)})
+    //     }, i * 1000);
+    // }
     
     // const twiml = new MessagingResponse();
     // helpee = req.headers.helpee,
