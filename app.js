@@ -33,12 +33,12 @@ app.post('/sms/rescue', (req, res) => {
     console.log("client", client);
     client.messages
     .create({
-        to: '+18319150199',
+        to: RESCUERS[0],
         from: '+18082014699',
         body: `${req.headers.helpee} is at ${req.headers.location} and needs help!`
     })
     .then((message) => {console.log("sent a test rescue message")})
-    
+    res.end();
     
     // for (let i = 0; i < RESCUERS.length; i++) {
     //     console.log("starting rescue request to", RESCUERS[i]);
