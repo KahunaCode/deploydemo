@@ -62,9 +62,9 @@ app.post('/sms/chat', twilio.webhook({validate: false}),(req, res) => {
 app.post('/sms/rescue', (req, res) => {
     //dummy DB query for helpers retuns phone #'s to text
     const twiml = new MessagingResponse();
-    helpee_phone = req.body.helpee_phone,
-    location = req.body.location,
-    console.log("from: ", helpee_phone);
+    // helpee_phone = req.body.helpee_phone,
+    // location = req.body.location,
+    console.log("from: ", req.body);
     // twiml.message(``)
 })
 
