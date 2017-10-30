@@ -36,9 +36,9 @@ app.post('/sms/rescue', (req, res) => {
         .create({
             to: RESCUERS[i],
             from: '+18082014699',
-            body: `${req.headers.helpee} is at ${req.headers.location} and needs help!`
+            body: `${new Date(new Date().getTime()).toLocaleTimeString()}: ${req.headers.helpee} is at ${req.headers.location} and needs help!`
         })
-        .then((message) => {console.log("sent a test rescue message")})
+        .then((message) => {console.log(`sent a rescue message to ${RESCUERS}`)})
         res.end();
     }
     // for (let i = 0; i < RESCUERS.length; i++) {
