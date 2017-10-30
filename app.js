@@ -15,8 +15,7 @@ for (let i = 0; i < ADMINS.length; i++) {
     setTimeout(function(){
         client.messages
         .create({
-            //to: ADMINS[i],
-            to: '+8319150199',
+            to: ADMINS[i],
             from: '+18082014699',
             body: `${new Date(new Date().getTime()).toLocaleTimeString()}- ${process.env.USER} started the helpme app`
         })
