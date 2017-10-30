@@ -64,7 +64,7 @@ app.post('/sms/rescue', (req, res) => {
     const twiml = new MessagingResponse();
     // helpee_phone = req.body.helpee_phone,
     // location = req.body.location,
-    console.log("from: ", req.body);
+    console.log("from: ", req);
     // twiml.message(``)
 })
 
