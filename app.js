@@ -65,6 +65,7 @@ app.post('/sms/rescue', (req, res) => {
     helpee = req.helpee,
     location = req.location,
     console.log(`${helpee} is at ${location} and needs help!`);
+    console.log(req)
     // twiml.message(``)
 })
 
