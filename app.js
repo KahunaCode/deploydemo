@@ -34,7 +34,7 @@ app.post('/sms/rescue', (req, res) => {
     for (let i = 0; i < RESCUERS.length; i++) {
         client.messages
         .create({
-            to: RESCUERS[0],
+            to: RESCUERS[i],
             from: '+18082014699',
             body: `${req.headers.helpee} is at ${req.headers.location} and needs help!`
         })
