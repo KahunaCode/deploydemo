@@ -62,8 +62,8 @@ app.post('/sms/chat', twilio.webhook({validate: false}),(req, res) => {
 app.post('/sms/rescue', (req, res) => {
     //dummy DB query for helpers retuns phone #'s to text
     const twiml = new MessagingResponse();
-    helpee = req.helpee,
-    location = req.location,
+    helpee = req.headers.helpee,
+    location = req.headers.location,
     console.log(`${helpee} is at ${location} and needs help!`);
     console.log("headers", req.headers)
     console.log(req)
