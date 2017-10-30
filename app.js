@@ -5,7 +5,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const app = express();
 
 const config = require(`./config/${process.env.NODE_ENV}.js`)
-const { ACCOUNT_SID, AUTH_TOKEN, ADMINS } = require('./config/sms')
+const { ACCOUNT_SID, AUTH_TOKEN, ADMINS, RESCUERS } = require('./config/sms')
 const client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
 
 console.log('hw')
@@ -23,6 +23,34 @@ for (let i = 0; i < ADMINS.length; i++) {
     }, i * 1000);
 }
 
+app.post('/sms/rescue', (req, res) => {
+    //
+    //dummy DB query for helpers retuns phone #'s to text. using RESCUERS in sms.js for tests
+    //
+    console.log(RESCUERS);
+    for (let i = 0; i < RESCUERS.length; i++) {
+        setTimeout(function(){
+            client.messages
+            .create({
+                to: RESCUERS[i],
+                from: req.headers.helpee,
+                location: req.headers.location,
+                body: `${helpee} is at ${location} and needs help!`
+            })
+            .then((message) => {console.log(`sent a message to ${RESCUERS[i]}`)})
+        }, i * 1000);
+    }
+    
+    // const twiml = new MessagingResponse();
+    // helpee = req.headers.helpee,
+    // location = req.headers.location,
+    // console.log(`${helpee} is at ${location} and needs help!`);
+    // console.log("headers", req.headers)
+    // console.log(req)
+    // twiml.message(`${helpee} is at ${location} and needs help!`);
+    // res.writeHead(200, {'Content-Type': 'text/xml'});
+    // res.end(twiml.toString());
+})
 
 // client.messages
 //     .create({
@@ -59,16 +87,7 @@ app.post('/sms/chat', twilio.webhook({validate: false}),(req, res) => {
     })
 })
 
-app.post('/sms/rescue', (req, res) => {
-    //dummy DB query for helpers retuns phone #'s to text
-    const twiml = new MessagingResponse();
-    helpee = req.headers.helpee,
-    location = req.headers.location,
-    console.log(`${helpee} is at ${location} and needs help!`);
-    console.log("headers", req.headers)
-    console.log(req)
-    // twiml.message(``)
-})
+
 
 app.use(express.static(__dirname + '/public'));
 
