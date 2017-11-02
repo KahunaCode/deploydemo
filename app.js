@@ -2,13 +2,25 @@ const express = require('express');
 const twilio = require('twilio');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
+
 const app = express();
 
 const config = require(`./config/${process.env.NODE_ENV}.js`)
-const { ACCOUNT_SID, AUTH_TOKEN, ADMINS, RESCUERS } = require('./config/sms')
+const { ACCOUNT_SID, AUTH_TOKEN, ADMINS, RESCUERS, API_KEY } = require('./config/sms')
 const client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
+const googleMapsClient = require('@google/maps').createClient({
+    key: API_KEY
+});
 
 console.log('hw')
+
+googleMapsClient.geocode({
+    address: '2800 Woodlawn Dr, Honolulu, HI'
+}, function(err,response){
+    if (!err){
+        console.log("google response is", response.json.results);
+    }
+})
 
 
 for (let i = 0; i < ADMINS.length; i++) {
