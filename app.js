@@ -18,7 +18,7 @@ googleMapsClient.geocode({
     address: '2800 Woodlawn Dr, Honolulu, HI'
 }, function(err,response){
     if (!err){
-        console.log("google response is", response.json.results);
+        console.log("google response is", response.json.results.geometry.location);
     }
 })
 
